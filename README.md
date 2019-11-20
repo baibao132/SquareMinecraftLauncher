@@ -1,10 +1,10 @@
-# SikaDeerLauncherWPF
+# SquareMinecratLauncher
 
 此项目开源目的用于学习和安全排查 
 
-本启动器核心基于SikaDeerLauncherCore库 
+本启动器核心基于SquareMinecraftLauncherCore库 
 
-该库开源：https://github.com/baibao132/SikaDeerLauncher 
+该库开源：https://github.com/baibao132/SquareMinecraftLauncher 
 
 请注意该项目遵循GNU GPL3.0开源协议 
 
