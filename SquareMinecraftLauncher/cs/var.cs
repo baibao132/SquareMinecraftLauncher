@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using SikaDeerLauncher.Minecraft;
+using SquareMinecraftLauncher.Minecraft;
 
-namespace SikaDeerLauncherWPF
+namespace SquareMinecraftLauncher
 {
     internal class DIYvar
     {
@@ -34,8 +34,8 @@ namespace SikaDeerLauncherWPF
         /// </summary>
         internal static List<McVersionList> minecraft5 = new List<McVersionList>();
         internal static MainWindow Main = new MainWindow();
-        internal static SikaDeerLauncher.Minecraft.AllTheExistingVersion[] ForgeGameVersion = new AllTheExistingVersion[0];
+        internal static SquareMinecraftLauncher.Minecraft.AllTheExistingVersion[] ForgeGameVersion = new AllTheExistingVersion[0];
         internal static List<UserControl1> l = new List<UserControl1>();
-        internal static Sz Main1 = new Sz();
+        internal static sz Main1 = new sz();
     }
 }

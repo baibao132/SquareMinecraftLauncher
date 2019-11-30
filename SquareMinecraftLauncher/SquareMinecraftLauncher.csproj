@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{10832BDC-8E77-4E6E-81F7-36945AB51C24}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SikaDeerLauncherWPF</RootNamespace>
-    <AssemblyName>SikaDeerLauncherWPF</AssemblyName>
+    <RootNamespace>SquareMinecraftLauncher</RootNamespace>
+    <AssemblyName>SquareMinecraftLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,23 +36,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>SDL1.ico</ApplicationIcon>
+    <ApplicationIcon>image\SDL1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
       <HintPath>..\packages\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net45\MahApps.Metro.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MahApps.Metro.IconPacks.JamIcons.3.0.0-alpha0270\lib\net45\MahApps.Metro.IconPacks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.FontAwesome, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MahApps.Metro.IconPacks.FontAwesome.3.0.0-alpha0270\lib\net45\MahApps.Metro.IconPacks.FontAwesome.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SikaDeerLauncher, Version=3.0.0.0, Culture=neutral, PublicKeyToken=d24359967f04e947, processorArchitecture=MSIL">
-      <HintPath>..\packages\SikaDeerLauncher.3.0.0\lib\NET45\SikaDeerLauncher.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -76,33 +85,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="email.cs" />
-    <Compile Include="Message.xaml.cs" />
-    <Compile Include="sz.xaml.cs">
-      <DependentUpon>sz.xaml</DependentUpon>
+    <Compile Include="wpf\Exception.xaml.cs">
+      <DependentUpon>Exception.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Item.xaml.cs">
+    <Compile Include="wpf\update.xaml.cs">
+      <DependentUpon>update.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\Item.xaml.cs">
       <DependentUpon>Item.xaml</DependentUpon>
     </Compile>
-    <Compile Include="var.cs" />
-    <Page Include="Message.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="animation.cs" />
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="userControl\login.xaml.cs">
+      <DependentUpon>login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="userControl\mcbbs.xaml.cs">
+      <DependentUpon>mcbbs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="userControl\Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="cs\var.cs" />
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,15 +112,52 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="wpf\Exception.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="wpf\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="cs\animation.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="cs\Core.cs" />
+    <Compile Include="wpf\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Page Include="Simple Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="sz.xaml">
+    <Page Include="wpf\sz.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="wpf\sz.xaml.cs">
+      <DependentUpon>sz.xaml</DependentUpon>
+    </Compile>
+    <Page Include="wpf\update.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Item.xaml">
+    <Page Include="userControl\Item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userControl\login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userControl\mcbbs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userControl\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,15 +194,15 @@
     <Resource Include="Resources\SDL12.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="自定义登录.png" />
-    <Resource Include="管理.png" />
-    <Resource Include="美化.png" />
-    <Resource Include="扩展.png" />
-    <Resource Include="核心.png" />
-    <Resource Include="setting.png" />
-    <Resource Include="-1f5bc8e86b4aabf6.jpg" />
-    <Resource Include="go-to-link.png" />
-    <Resource Include="download.png" />
+    <Resource Include="image\自定义登录.png" />
+    <Resource Include="image\管理.png" />
+    <Resource Include="image\美化.png" />
+    <Resource Include="image\扩展.png" />
+    <Resource Include="image\核心.png" />
+    <Resource Include="image\setting.png" />
+    <Resource Include="image\-1f5bc8e86b4aabf6.jpg" />
+    <Resource Include="image\go-to-link.png" />
+    <Resource Include="image\download.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\go-to-link1.png" />
@@ -173,58 +211,51 @@
     <None Include="Resources\go-to-link.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="14.png" />
+    <Resource Include="image\14.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ct.png" />
+    <Resource Include="image\警告.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="警告.png" />
+    <Resource Include="image\1484445710_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="1484445710_2.png" />
+    <Resource Include="image\SDL1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SDL1.ico" />
+    <Resource Include="image\104ca0d99b8887a8656924dffe2439c7_13941583074205.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="104ca0d99b8887a8656924dffe2439c7_13941583074205.png" />
+    <Resource Include="image\1366553-20180407153016245-1947754371.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="删  除.png" />
+    <Resource Include="image\1366553-20180407153039546-918710094.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="1366553-20180407153016245-1947754371.png" />
+    <Resource Include="image\go-to-link1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="1366553-20180407153039546-918710094.png" />
+    <Resource Include="image\6ae.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="go-to-link1.png" />
+    <Resource Include="image\编辑.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="6ae.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="编辑.png" />
+    <ProjectReference Include="E:\2019备份\SquareMinecraftLauncherCore\SquareMinecraftLauncherCore\SquareMinecraftLauncherCore.csproj">
+      <Project>{f97010a9-5d34-4ca8-8696-4ed3f2fb0ab5}</Project>
+      <Name>SquareMinecraftLauncherCore</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
   </PropertyGroup>
-  <!-- Code to merge the assemblies into one:setup.exe -->
-  <!-- Code to merge the assemblies into one:setup.exe -->
-  <UsingTask TaskName="ILMerge.MSBuild.Tasks.ILMerge" AssemblyFile="$(SolutionDir)\packages\ILMerge.MSBuild.Tasks.1.0.0.3\tools\ILMerge.MSBuild.Tasks.dll" />
-  <Target Name="AfterBuild">
+  
+<Target Name="AfterResolveReferences">
     <ItemGroup>
-      <MergeAsm Include="$(OutputPath)$(TargetFileName)" />
-      <MergeAsm Include="$(OutputPath)MahApps.Metro.dll" />
-      <!-- 这儿改成需要做嵌入的dll名 -->
+      <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
+        <LogicalName>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
+      </EmbeddedResource>
     </ItemGroup>
-    <PropertyGroup>
-      <MergedAssembly>$(ProjectDir)$(OutDir)MERGED_ASSEMBLY_NAME.exe</MergedAssembly>
-      <!-- 这儿改成需要做输出的exe名 -->
-    </PropertyGroup>
-    <Message Text="ILMerge @(MergeAsm) -&gt; $(MergedAssembly)" Importance="high" />
-    <ILMerge InputAssemblies="@(MergeAsm)" OutputFile="$(MergedAssembly)" TargetKind="SameAsPrimaryAssembly" />
-  </Target>
+</Target>
 </Project>

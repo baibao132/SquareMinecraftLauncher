@@ -1,5 +1,5 @@
-﻿using SikaDeerLauncher;
-using SikaDeerLauncher.Minecraft;
+﻿using SquareMinecraftLauncher;
+using SquareMinecraftLauncher.Minecraft;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SikaDeerLauncherWPF
+namespace SquareMinecraftLauncher
 {
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
@@ -86,6 +86,7 @@ namespace SikaDeerLauncherWPF
         {
             if (name.Text == "")
             {
+                name.Visibility = Visibility.Collapsed;
                 return;
             }
             FileInfo fi = new FileInfo(@".minecraft\versions\" + aa.Content.ToString() + @"\" + aa.Content.ToString() + ".jar"); //xx/xx/aa.rar
@@ -132,7 +133,7 @@ namespace SikaDeerLauncherWPF
             }
             catch
             {
-                Core.Message("删除失败", true);
+                SquareMinecraftLauncherWPF.Core.Message(DIYvar.Main1,"删除失败", true);
             }
             DIYvar.Main1.GameVersion.Items.Clear();
             #region 读版本

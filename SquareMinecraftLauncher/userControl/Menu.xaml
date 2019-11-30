@@ -1,0 +1,58 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SquareMinecraftLauncher.userControl"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="SquareMinecraftLauncher.userControl.Menu"
+             mc:Ignorable="d" Width="480" Height="370">
+    <Grid Margin="0,0,10,0">
+
+        <Grid x:Name="config" HorizontalAlignment="Left" Height="362" Margin="1.072,4.312,0,0" VerticalAlignment="Top" Width="476">
+            <Grid.Background>
+                <ImageBrush/>
+            </Grid.Background>
+            <Ellipse x:Name="ret" HorizontalAlignment="Left" Height="40" Margin="420,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" MouseLeftButtonDown="Ret_MouseLeftButtonDown">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/go-to-link.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <mah:Tile x:Name="Sz" Content="" HorizontalAlignment="Left" Height="80" Margin="35,29,0,0" VerticalAlignment="Top" Width="225" BorderBrush="Black" Click="Sz_Click">
+                <mah:Tile.Background>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/setting.png"/>
+                </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile x:Name="hx" Content="" HorizontalAlignment="Left" Height="120" Margin="141,114,0,0" VerticalAlignment="Top" Width="119" Click="Hx_Click">
+                <mah:Tile.Background>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/核心.png"/>
+                </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile x:Name="gxh" Content="" HorizontalAlignment="Left" Height="80" Margin="265,154,0,0" VerticalAlignment="Top" Width="119" Click="Gxh_Click">
+                <mah:Tile.Background>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/美化.png"/>
+                </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile x:Name="xz" Content="" HorizontalAlignment="Left" Height="120" Margin="265,29,0,0" VerticalAlignment="Top" Width="119" Click="Xz_Click">
+                <mah:Tile.Background>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/download.png"/>
+                </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile x:Name="gl" Content="" HorizontalAlignment="Left" Height="75" Margin="35,114,0,0" VerticalAlignment="Top" Width="101" Click="Gl_Click">
+                <mah:Tile.Background>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/管理.png"/>
+                </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile x:Name="kzb" Content="" HorizontalAlignment="Left" Height="116" Margin="35,194,0,0" VerticalAlignment="Top" Width="101" Click="Kzb_Click">
+                <mah:Tile.Background>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/扩展.png"/>
+                </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile x:Name="zdy" Content="" HorizontalAlignment="Left" Height="71" Margin="141,239,0,0" VerticalAlignment="Top" Width="243" BorderBrush="Black" Click="Zdy_Click" >
+                <mah:Tile.Background>
+                    <ImageBrush ImageSource="/SquareMinecraftLauncher;component/image/自定义登录.png"/>
+                </mah:Tile.Background>
+            </mah:Tile>
+        </Grid>
+
+    </Grid>
+</UserControl>

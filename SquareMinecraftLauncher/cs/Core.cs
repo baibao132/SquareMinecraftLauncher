@@ -15,10 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Gac;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using MinecraftServer.Server;
-using SikaDeerLauncher.Minecraft;
+using SquareMinecraftLauncher;
+using SquareMinecraftLauncher.Minecraft;
 
-namespace SikaDeerLauncherWPF
+namespace SquareMinecraftLauncherWPF
 {
     internal class Core
     {
@@ -57,24 +59,37 @@ namespace SikaDeerLauncherWPF
         }
             private Bitmap GetResourceBitmap(string strImageName)
         {
-            var obj = Properties.Resources.ResourceManager.GetObject(strImageName, Properties.Resources.Culture);
+            var obj = SquareMinecraftLauncher.Properties.Resources.ResourceManager.GetObject(strImageName, SquareMinecraftLauncher.Properties.Resources.Culture);
             return (Bitmap)obj;
         }
         public BitmapImage BitmapToBitmapImage(Bitmap bitmap)
         {
+            System.IO.MemoryStream ms = null;
             BitmapImage bitmapImage = new BitmapImage();
-            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            try
             {
-                bitmap.Save(ms, bitmap.RawFormat);
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = ms;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-                ms.Close();
+
+                using (ms = new System.IO.MemoryStream())
+                {
+                    bitmap.Save(ms, bitmap.RawFormat);
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                    ms.Close();
+
+                }
+                bitmap.Dispose();
 
             }
-            bitmap.Dispose();
+            catch
+            {
+                ms.Close();
+                bitmap.Dispose();
+                throw new SquareMinecraftLauncher.SquareMinecraftLauncherException("a");
+
+            }
             return bitmapImage;
         }
         internal void SetFile(string path)
@@ -95,19 +110,9 @@ namespace SikaDeerLauncherWPF
                 Console.WriteLine(exception1.Message);
             }
         }
-        public static void Message(string message, bool a)
+        public static void Message(MetroWindow metro,string message, bool a)
         {
-            
-            SikaDeerLauncherWPF.Message message1 = new Message();
-            if (a)
-            {
-                message1.dbt.Text = message;
-            }
-            else
-            {
-                message1.xbt.Text = message;
-            }
-            message1.Show();
+            metro.ShowMessageAsync("提示", message);
         }
         internal ObservableCollection<T> ItemAdd<T>(T[] items)
         {
@@ -164,7 +169,7 @@ namespace SikaDeerLauncherWPF
             return temp.ToString();
         }
         Tools tools = new Tools();
-        internal void iniWirte(Sz sz,MainWindow main)
+        internal void iniWirte(sz sz,MainWindow main)
         {
             DES.DESEncrypt dES = new DES.DESEncrypt();
             sz.JVM.Text = IniWriteValue("GameConfig","JVM",sz.JVM.Text);//JVM参数
@@ -193,17 +198,17 @@ namespace SikaDeerLauncherWPF
             sz.port.Text = IniWriteValue("GameConfig", "Port", sz.port.Text);//读写服务器端口
             sz.GameText.Text = IniWriteValue("GameConfig", "GameTitle", sz.GameText.Text);//读写游戏标题
 
-            main.cb1.SelectedIndex = Convert.ToInt32(IniWriteValue("Login", "LoginWay", main.cb1.SelectedIndex.ToString()));//读写登录方式
-            if (main.cb1.SelectedIndex == 1)//判断验证方式为正版登录
+            main.login.cb1.SelectedIndex = Convert.ToInt32(IniWriteValue("Login", "LoginWay", main.login.cb1.SelectedIndex.ToString()));//读写登录方式
+            if (main.login.cb1.SelectedIndex == 1)//判断验证方式为正版登录
             {
-                main.TB1.Text = dES.Decrypt(IniWriteValue("Login", "OnName", dES.Encrypt(main.TB1.Text, "ASCTRQAS")), "ASCTRQAS");//读写加解密账号
-                main.TB2.Password = dES.Decrypt(IniWriteValue("Login", "OnPassword", dES.Encrypt(main.TB2.Password, "ASCTRQAS")), "ASCTRQAS");//读写加解密密码
-                if (main.TB2.Password != "")
+                main.login.TB1.Text = dES.Decrypt(IniWriteValue("Login", "OnName", dES.Encrypt(main.login.TB1.Text, "ASCTRQAS")), "ASCTRQAS");//读写加解密账号
+                main.login.TB2.Password = dES.Decrypt(IniWriteValue("Login", "OnPassword", dES.Encrypt(main.login.TB2.Password, "ASCTRQAS")), "ASCTRQAS");//读写加解密密码
+                if (main.login.TB2.Password != "")
                 {
-                    main.label1.Visibility = System.Windows.Visibility.Collapsed;
+                    main.login.label1.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
-            main.TB1.Text = IniWriteValue("Login", "LoginName", main.TB1.Text);//读写离线登录游戏名
+            main.login.TB1.Text = IniWriteValue("Login", "LoginName", main.login.TB1.Text);//读写离线登录游戏名
             sz.WinC.SelectedIndex = Convert.ToInt32(IniWriteValue("Launcher", "Theme", sz.WinC.SelectedIndex.ToString()));//读写启动器主题
             sz.javaw.Text = IniWriteValue("GameConfig", "Java", sz.javaw.Text);//读写java位置
             if (sz.javaw.Text == "")//判断java位置是否为空
@@ -220,12 +225,12 @@ namespace SikaDeerLauncherWPF
                 }
                 sz.ChangeTheme((sz.WinColor.SelectedItem as ListBoxItem).Content.ToString(),WinC);
             }
-            if (File.Exists(@"SikaDeerLauncher\bj\bj.jpg"))
-            {
-                sz.Background = brush(@"SikaDeerLauncher\bj\bj.jpg");
-                DIYvar.Main.Background = brush(@"SikaDeerLauncher\bj\bj.jpg");
-                sz.Image1.Source = BitmapToBitmapImage(new System.Drawing.Bitmap(@"SikaDeerLauncher\bj\bj.jpg"));
-            }
+                if (File.Exists(@"SikaDeerLauncher\bj\bj.png"))
+                {
+                    sz.Background = brush(@"SikaDeerLauncher\bj\bj.png");
+                    DIYvar.Main.Background = brush(@"SikaDeerLauncher\bj\bj.png");
+                    sz.Image1.Source = BitmapToBitmapImage(new System.Drawing.Bitmap(@"SikaDeerLauncher\bj\bj.png"));
+                }}
             //if (sz.Sever.Text != "" || sz.port.Text != "")
             //{
             //    if (sz.port.Text == "")
@@ -290,6 +295,3 @@ namespace SikaDeerLauncherWPF
         }
 
     }
-
-
-}

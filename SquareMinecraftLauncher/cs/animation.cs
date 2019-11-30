@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SikaDeerLauncherWPF
+namespace SquareMinecraftLauncher
 {
     internal class animation
     {
@@ -18,7 +18,7 @@ namespace SikaDeerLauncherWPF
             timer1 = null;
             a1 = a;
             config = grid;
-            Core Core = new Core();
+            SquareMinecraftLauncherWPF.Core Core = new SquareMinecraftLauncherWPF.Core();
             timer1 = Core.timer(co, 2);
             timer1.Start();
             NL = NewLeft;

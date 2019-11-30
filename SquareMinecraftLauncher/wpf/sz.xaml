@@ -1,15 +1,15 @@
 ﻿<Controls:MetroWindow
-    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SikaDeerLauncherWPF"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d" 
-        x:Class="SikaDeerLauncherWPF.Sz"
-        Title="SikaDeerLauncher" Height="450" Width="800" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="MetroWindow_Closing">
+        x:Class="SquareMinecraftLauncher.sz" x:Name="Sz"
+        Title="SquareMinecraftLauncher" Height="450" Width="800" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="MetroWindow_Closing">
     <Controls:MetroWindow.Background>
-        <ImageBrush ImageSource="14.png"/>
+        <ImageBrush ImageSource="../image/14.png"/>
     </Controls:MetroWindow.Background>
     <Grid>
         <Grid HorizontalAlignment="Left" Height="420.4" VerticalAlignment="Top" Width="793.6">
@@ -37,7 +37,7 @@
                                         <ImageBrush/>
                                     </Grid.Background>
                                     <GroupBox Header="自定义登录设置" HorizontalAlignment="Left" Height="313.2" Margin="24,10,0,0" VerticalAlignment="Top" Width="735" Background="#CCE2672D" Grid.ColumnSpan="3" BorderBrush="{x:Null}">
-                                        <Button Content="验证" HorizontalAlignment="Left" Height="35" Margin="470,172.8,0,0" VerticalAlignment="Top" Width="85" Background="#FFEE5F40" Foreground="White" FontSize="12" Click="Button_Click"/>
+                                        <Button Content="验证" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Left" Height="31" Margin="470,174.8,0,0" VerticalAlignment="Top" Width="85" FontSize="12" Click="Button_Click"/>
                                     </GroupBox>
                                     <TextBox x:Name="ID" HorizontalAlignment="Left" Height="26" Margin="210.102,112.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.Column="2"/>
                                     <Label Content="统一通行证ID或自定义皮肤站网址：" HorizontalAlignment="Left" Height="25" Margin="210.102,87.8,0,0" VerticalAlignment="Top" Width="215" Grid.Column="2"/>
@@ -57,9 +57,9 @@
                                     <Grid.Background>
                                         <ImageBrush/>
                                     </Grid.Background>
-                                    <Image x:Name="Image1" HorizontalAlignment="Left" Height="170" Margin="10,40,0,0" VerticalAlignment="Top" Width="320" Stretch="Fill" Source="14.png"/>
+                                    <Image x:Name="Image1" HorizontalAlignment="Left" Height="170" Margin="10,40,0,0" VerticalAlignment="Top" Width="320" Stretch="Fill" Source="../image/14.png"/>
                                     <Label Content="背景图片" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="#FF539DD0" FontWeight="Bold"/>
-                                    <Button Content="浏览" HorizontalAlignment="Left" Height="35" Margin="120,228.8,0,0" VerticalAlignment="Top" Width="79" Background="#FFF79844" FontSize="14" Foreground="White" Click="Button_Click_1"/>
+                                    <Button Content="浏览" Style="{StaticResource AccentedSquareButtonStyle}"  HorizontalAlignment="Left" Height="35" Margin="120,228.8,0,0" VerticalAlignment="Top" Width="79" FontSize="14" Click="Button_Click_1"/>
                                     <Label Content="启动器主题颜色" HorizontalAlignment="Left" Height="30" Margin="354,10,0,0" VerticalAlignment="Top" Width="100" FontWeight="Bold" Background="{x:Null}" Foreground="#FF539DD0"/>
                                     <ListBox x:Name="WinColor" HorizontalAlignment="Left" Height="233.8" Margin="364,45,0,0" VerticalAlignment="Top" Width="195" SelectionChanged="WinColor_SelectionChanged">
                                         <ListBoxItem Content="Red"/>
@@ -84,24 +84,43 @@
                                     <Grid.Background>
                                         <ImageBrush/>
                                     </Grid.Background>
-                                    <TextBox x:Name="RAM" HorizontalAlignment="Left" Height="0" Margin="49,102.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225"/>
-                                    <Label Content="虚拟内存：" HorizontalAlignment="Left" Height="23.8" Margin="49,74,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <Label Content="游戏版本：" HorizontalAlignment="Left" Height="23.8" Margin="49,10,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <ComboBox x:Name="GameVersion" HorizontalAlignment="Left" Height="5" Margin="49,38.8,0,0" VerticalAlignment="Top" Width="225"/>
-                                    <TextBox x:Name="JVM" HorizontalAlignment="Left" Height="0" Margin="49,162.6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225"/>
-                                    <Label Content="JVM参数：" HorizontalAlignment="Left" Height="23.8" Margin="49,133.8,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <TextBox x:Name="hz" HorizontalAlignment="Left" Height="0" Margin="49,232.6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225"/>
-                                    <Label Content="后置参数：" HorizontalAlignment="Left" Height="23.8" Margin="49,203.8,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <TextBox x:Name="javaw" HorizontalAlignment="Left" Height="0" Margin="424,38.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225"/>
-                                    <Label Content="javaw路径：" HorizontalAlignment="Left" Height="23.8" Margin="424,10,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <TextBox x:Name="Sever" HorizontalAlignment="Left" Height="0" Margin="424,102.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225"/>
-                                    <Label Content="服务器地址：" HorizontalAlignment="Left" Height="23.8" Margin="424,74,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <TextBox x:Name="port" HorizontalAlignment="Left" Height="0" Margin="424,162.6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225"/>
-                                    <Label Content="服务器端口：" HorizontalAlignment="Left" Height="23.8" Margin="424,133.8,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <TextBox x:Name="GameText" HorizontalAlignment="Left" Height="0" Margin="424,232.6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225"/>
-                                    <Label Content="游戏标题：" HorizontalAlignment="Left" Height="23.8" Margin="424,203.8,0,0" VerticalAlignment="Top" Width="90"/>
-                                    <Button Content="浏览" HorizontalAlignment="Left" Height="26" Margin="654,38.8,0,0" VerticalAlignment="Top" Width="40" Background="#FFF05757" BorderBrush="White" Click="Button_Click_3"/>
-                                    <Button Content="下载Java" HorizontalAlignment="Left" Height="26" Margin="698,38.8,0,0" VerticalAlignment="Top" Width="60" Background="#FF415CEA" BorderBrush="White" Click="Button_Click_4"/>
+                                    <ScrollViewer>
+                                        <StackPanel Margin="10,0">
+                                            <GroupBox Header="版本设置" Height="58.8" Width="749">
+                                                <ComboBox x:Name="GameVersion" HorizontalAlignment="Left" Height="5" Margin="6,-0.6,0,-0.8" VerticalAlignment="Top" Width="714"/>
+                                            </GroupBox>
+                                            <GroupBox Header="Java设置" Height="215" Width="749" Margin="0">
+                                                <StackPanel Margin="0,0,0,0.4">
+                                                    <Controls:ToggleSwitch x:Name="isAutoJavaToggle" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" Margin="0,0,514.8,105.4" Content="自动分配Java虚拟内存" IsChecked="True" Click="IsAutoJavaToggle_Click" />
+                                                    <Label Content="JAVA路径" Margin="10,-154,604.8,0" Height="26.12"/>
+                                                    <TextBox x:Name="javaw" Margin="0,-105,0,0" VerticalAlignment="Center" IsEnabled="False"/>
+                                                    <Button Content="手动查找java" Style="{StaticResource AccentedSquareButtonStyle}" Margin="0,-40,0,0" VerticalAlignment="Center" Click="Button_Click_10"></Button>
+                                                    <TextBlock Text="JAVA虚拟内存" Margin="12,0,642.8,0"></TextBlock>
+                                                    <TextBox x:Name="RAM" Margin="0,2,0,0" IsEnabled="False"></TextBox>
+                                                </StackPanel>
+                                            </GroupBox>
+                                            <GroupBox Header="高级参数设置" Height="140">
+                                                <StackPanel>
+                                                    <TextBlock Text="JVM参数" Margin="10,0,0,0"></TextBlock>
+                                                    <TextBox x:Name="JVM" Margin="0,6,0,0"></TextBox>
+                                                    <TextBlock Text="后置参数" Margin="10,3,0,0"></TextBlock>
+                                                    <TextBox x:Name="hz" ></TextBox>
+                                                </StackPanel>
+                                            </GroupBox>
+                                            <GroupBox Header="服务器设置" Height="145">
+                                                <StackPanel>
+                                                    <TextBlock Text="服务器地址" Margin="10,0,0,0"></TextBlock>
+                                                    <TextBox x:Name="Sever" Margin="0,5,0,0"></TextBox>
+                                                    <TextBlock Text="服务器端口" Margin="0,3,0,0"></TextBlock>
+                                                    <TextBox x:Name="port" Margin="0,4,0,0"></TextBox>
+                                                </StackPanel>
+                                            </GroupBox>
+                                            <GroupBox Header="游戏标题设置" Height="85">
+                                                <TextBox x:Name="GameText" Margin="0,14,0,11"></TextBox>
+                                            </GroupBox>
+                                        </StackPanel>
+
+                                    </ScrollViewer>
                                 </Grid>
                             </TabItem>
                         </TabControl>
@@ -139,7 +158,7 @@
                         <Grid.Background>
                             <ImageBrush/>
                         </Grid.Background>
-                        <Image HorizontalAlignment="Left" Height="310" Margin="10,81.4,0,0" VerticalAlignment="Top" Width="260" Source="1484445710_2.png"/>
+                        <Image HorizontalAlignment="Left" Height="310" Margin="10,81.4,0,0" VerticalAlignment="Top" Width="260" Source="../image/1484445710_2.png"/>
                         <Label Content="游戏类型：" HorizontalAlignment="Left" Height="25" Margin="305,74.4,0,0" VerticalAlignment="Top" Width="62"/>
                         <ComboBox x:Name="yxlx" HorizontalAlignment="Left" Height="25" Margin="372,73.4,0,0" VerticalAlignment="Top" Width="185" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
                             <ComboBoxItem Content="正式版"/>
@@ -157,7 +176,7 @@
                             </ListView.View>
                         </ListView>
                         <Label Content="游戏版本：" HorizontalAlignment="Left" Height="24" Margin="305,104.4,0,0" VerticalAlignment="Top" Width="72"/>
-                        <Button Content="安装" HorizontalAlignment="Left" Height="25" Margin="617,104.4,0,0" VerticalAlignment="Top" Width="80" Background="#FF446DE2" BorderBrush="White" FontSize="10" Click="Button_Click_2"/>
+                        <Button Content="安装" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Left" Height="25" Margin="617,104.4,0,0" VerticalAlignment="Top" Width="80" FontSize="10" Click="Button_Click_2" />
                         <TextBox x:Name="ss" HorizontalAlignment="Left" Height="25" Margin="372,102.4,0,0" TextWrapping="Wrap" Text="搜索" VerticalAlignment="Top" Width="185" BorderBrush="{x:Null}" PreviewMouseDown="TextBox_PreviewMouseDown" SelectionChanged="Ss_SelectionChanged"/>
                     </Grid>
                 </TabItem>
@@ -166,31 +185,42 @@
                         <Grid.Background>
                             <ImageBrush/>
                         </Grid.Background>
-                        <Image HorizontalAlignment="Left" Height="240" Margin="0,72.4,0,0" VerticalAlignment="Top" Width="255" Source="104ca0d99b8887a8656924dffe2439c7_13941583074205.png" Stretch="Fill"/>
-                        <Rectangle Fill="#FFE79174" HorizontalAlignment="Left" Height="42" Margin="280,66.4,0,0" VerticalAlignment="Top" Width="42"/>
-                        <TextBlock HorizontalAlignment="Left" Height="29" Margin="287,72.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="29" FontSize="25"><Run Text=" "/><Run Text="F"/></TextBlock>
-                        <Rectangle Fill="#FF925CE8" HorizontalAlignment="Left" Height="42" Margin="280,116.4,0,0" VerticalAlignment="Top" Width="42"/>
-                        <TextBlock HorizontalAlignment="Left" Height="25" Margin="288,121.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontSize="25" Text=" L"/>
-                        <Rectangle Fill="#FF56A6E8" HorizontalAlignment="Left" Height="42" Margin="280,168.51,0,0" VerticalAlignment="Top" Width="42"/>
-                        <TextBlock HorizontalAlignment="Left" Height="35" Margin="291,173.51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontSize="25" Text="O" RenderTransformOrigin="0.48,0.429"/>
-                        <ComboBox x:Name="Forge" HorizontalAlignment="Left" Height="29" Margin="327,72.4,0,0" VerticalAlignment="Top" Width="307" SelectedIndex="0">
-                            <ComboBoxItem Content="请先选择版本"/>
-                        </ComboBox>
-                        <ComboBox x:Name="Liteloader" HorizontalAlignment="Left" Height="29" Margin="327,123.9,0,0" VerticalAlignment="Top" Width="307" SelectedIndex="0">
-                            <ComboBoxItem Content="请先选择版本"/>
-                        </ComboBox>
-                        <ComboBox x:Name="Optifine" HorizontalAlignment="Left" Height="29" Margin="327,176.4,0,0" VerticalAlignment="Top" Width="307" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_1">
-                            <ComboBoxItem Content="请先选择版本"/>
-                        </ComboBox>
-                        <TextBlock HorizontalAlignment="Left" Height="15" Margin="327,54.213,0,0" TextWrapping="Wrap" Text="Forge" VerticalAlignment="Top" Width="77"/>
-                        <TextBlock HorizontalAlignment="Left" Height="17.5" Margin="327,106.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"><Run Text="L"/><Run Text="iteloader"/></TextBlock>
-                        <TextBlock HorizontalAlignment="Left" Height="40.89" Margin="229,210.51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" FontWeight="Bold" FontSize="22"><Run Text="_________________________________________________"/><Run Text="_"/></TextBlock>
-                        <TextBlock HorizontalAlignment="Left" Height="18" Margin="327,158.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77"><Run Text="O"/><Run Text="ptifine"/></TextBlock>
-                        <Rectangle Fill="#FFD674E7" HorizontalAlignment="Left" Height="42" Margin="280,270.51,0,0" VerticalAlignment="Top" Width="42"/>
-                        <TextBlock HorizontalAlignment="Left" Height="35" Margin="289,275.51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontSize="25" Text="M" RenderTransformOrigin="0.48,0.429"/>
-                        <ComboBox x:Name="kzbGameVersion" HorizontalAlignment="Left" Height="29" Margin="327,278.4,0,0" VerticalAlignment="Top" Width="307" SelectionChanged="KzbGameVersion_SelectionChanged"/>
-                        <TextBlock HorizontalAlignment="Left" Height="18" Margin="327,260.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" Text="游戏版本"/>
-                        <Button Content="安装" HorizontalAlignment="Left" Height="30" Margin="649,341.4,0,0" VerticalAlignment="Top" Width="80" FontSize="13" Background="#FFF76868" BorderBrush="Black" OpacityMask="#FF4C81FD" Click="Button_Click_5"/>
+                        <Image HorizontalAlignment="Left" Height="240" Margin="0,72.4,0,0" VerticalAlignment="Top" Width="255" Source="../image/104ca0d99b8887a8656924dffe2439c7_13941583074205.png" Stretch="Fill"/>
+                        <ScrollViewer Margin="0,54,48.6,186.4">
+                            <StackPanel Margin="10,0">
+                                <Rectangle Fill="#FFE79174" HorizontalAlignment="Left" Height="42" Margin="280,27.4,0,0" VerticalAlignment="Top" Width="42"/>
+                                <TextBlock HorizontalAlignment="Left" Height="29" Margin="287,-35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="29" FontSize="25"><Run Text=" "/><Run Text="F"/></TextBlock>
+                                <Rectangle Fill="#FF925CE8" HorizontalAlignment="Left" Height="42" Margin="280,8,0,0" VerticalAlignment="Top" Width="42"/>
+                                <TextBlock HorizontalAlignment="Left" Height="25" Margin="288,-35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontSize="25" Text=" L"/>
+                                <Rectangle Fill="#FF56A6E8" HorizontalAlignment="Left" Height="42" Margin="280,8,0,0" VerticalAlignment="Top" Width="42"/>
+                                <TextBlock HorizontalAlignment="Left" Height="35" Margin="291,-36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontSize="25" Text="O" RenderTransformOrigin="0.48,0.429"/>
+                                <ComboBox x:Name="Forge" HorizontalAlignment="Left" Height="29" Margin="327,-135,0,0" VerticalAlignment="Top" Width="307" SelectedIndex="0">
+                                    <ComboBoxItem Content="请先选择版本"/>
+                                </ComboBox>
+                                <ComboBox x:Name="Liteloader" HorizontalAlignment="Left" Height="29" Margin="327,-85,0,0" VerticalAlignment="Top" Width="307" SelectedIndex="0">
+                                    <ComboBoxItem Content="请先选择版本"/>
+                                </ComboBox>
+                                <ComboBox x:Name="Optifine" HorizontalAlignment="Left" Height="29" Margin="327,-35,0,0" VerticalAlignment="Top" Width="307" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_1">
+                                    <ComboBoxItem Content="请先选择版本"/>
+                                </ComboBox>
+                                <TextBlock HorizontalAlignment="Left" Height="15" Margin="327,-151,0,0" TextWrapping="Wrap" Text="Forge" VerticalAlignment="Top" Width="77"/>
+                                <TextBlock HorizontalAlignment="Left" Height="17.5" Margin="327,-98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"><Run Text="L"/><Run Text="iteloader"/></TextBlock>
+                                <TextBlock HorizontalAlignment="Left" Height="18" Margin="327,-48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77"><Run Text="O"/><Run Text="ptifine"/></TextBlock>
+                                <Rectangle Fill="#FF19D997" HorizontalAlignment="Left" Height="42" Margin="280,8,0,0" VerticalAlignment="Top" Width="42"/>
+                                <TextBlock HorizontalAlignment="Left" Height="35" Margin="294,-37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontSize="25" Text="F" RenderTransformOrigin="0.48,0.429"/>
+                                <ComboBox x:Name="Fabricmc" HorizontalAlignment="Left" Height="29" Margin="327,-35,0,0" VerticalAlignment="Top" Width="307" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_1">
+                                    <ComboBoxItem Content="请先选择版本"/>
+                                </ComboBox>
+                                <TextBlock HorizontalAlignment="Left" Height="18" Margin="327,-49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" Text="Fabricmc"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <TextBlock HorizontalAlignment="Left" Height="40.89" Margin="229,216.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" FontWeight="Bold" FontSize="22"><Run Text="_________________________________________________"/><Run Text="_"/></TextBlock>
+                        <Rectangle Fill="#FFD674E7" HorizontalAlignment="Left" Height="42" Margin="290,259.01,0,0" VerticalAlignment="Top" Width="42"/>
+                        <TextBlock HorizontalAlignment="Left" Height="35" Margin="299,264.01,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontSize="25" Text="M" RenderTransformOrigin="0.48,0.429"/>
+                        <ComboBox x:Name="kzbGameVersion" HorizontalAlignment="Left" Height="29" Margin="337,267.01,0,0" VerticalAlignment="Top" Width="307" SelectionChanged="KzbGameVersion_SelectionChanged"/>
+                        <TextBlock HorizontalAlignment="Left" Height="18" Margin="337,252.01,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" Text="游戏版本"/>
+                        <Button Content="安装"  HorizontalAlignment="Left" Style="{StaticResource AccentedSquareButtonStyle}" Height="30" Margin="659,369.01,0,0" VerticalAlignment="Top" Width="80" FontSize="13" OpacityMask="#FF4C81FD" Click="Button_Click_5" />
                     </Grid>
                 </TabItem>
                 <TabItem Header="游戏管理">
@@ -215,21 +245,9 @@
                                     <TextBox x:Name="yxglForge" HorizontalAlignment="Left" Height="30" Margin="81,75.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="431" IsReadOnly="True" Opacity="0.9"/>
                                     <TextBox x:Name="yxglLiteloader" HorizontalAlignment="Left" Height="30" Margin="81,137.84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="431" IsReadOnly="True" Opacity="0.9"/>
                                     <TextBox x:Name="yxgloptifine" HorizontalAlignment="Left" Height="30" Margin="81,199.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="431" IsReadOnly="True" Opacity="0.9"/>
-                                    <Ellipse HorizontalAlignment="Left" Height="30" Margin="527,75.4,0,0" Stroke="Black" VerticalAlignment="Top" Width="30" StrokeThickness="0" MouseLeftButtonDown="Button_Click_9">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="删  除.png" Stretch="Uniform"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <Ellipse HorizontalAlignment="Left" Height="30" Margin="527,137.84,0,0" Stroke="Black" VerticalAlignment="Top" Width="30" StrokeThickness="0" MouseLeftButtonDown="Button_Click_7">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="删  除.png" Stretch="Uniform"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <Ellipse HorizontalAlignment="Left" Height="30" Margin="527,199.4,0,0" Stroke="Black" VerticalAlignment="Top" Width="30" StrokeThickness="0" MouseLeftButtonDown="Button_Click_8">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="删  除.png" Stretch="Uniform"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
+                                    <Label HorizontalAlignment="Left" Height="30" Margin="481,75.4,0,0" VerticalAlignment="Top" Width="30" MouseLeftButtonDown="Button_Click_9" Content="{iconPacks:FontAwesome Kind=TimesCircleRegular, Height=20 , Width=20}"/>
+                                    <Label HorizontalAlignment="Left" Height="30" Margin="482,137.84,0,0" VerticalAlignment="Top" Width="30" Content="{iconPacks:FontAwesome Kind=TimesCircleRegular, Height=20 , Width=20}" MouseLeftButtonDown="Button_Click_7"/>
+                                    <Label HorizontalAlignment="Left" Height="30" Margin="482,199.4,0,0" VerticalAlignment="Top" Width="30" MouseLeftButtonDown="Button_Click_8" Content="{iconPacks:FontAwesome Kind=TimesCircleRegular, Height=20 , Width=20}"/>
                                 </Grid>
                             </TabItem>
                             <TabItem Header="日志" Margin="-145.6,51.8,74.2,-51.8">
@@ -247,77 +265,32 @@
                         </TabControl>
                     </Grid>
                 </TabItem>
-                <TabItem Header="反馈">
-                    <Grid>
-                        <Grid.Background>
-                            <ImageBrush/>
-                        </Grid.Background>
-                        <TextBlock HorizontalAlignment="Left" Height="15" Margin="131,24.4,0,0" TextWrapping="Wrap" Text="问题：" VerticalAlignment="Top" Width="55"/>
-                        <ComboBox x:Name="fkxx" HorizontalAlignment="Left" Height="20" Margin="131,49.4,0,0" VerticalAlignment="Top" Width="510" SelectedIndex="0">
-                            <ComboBoxItem Content="遇到bug或启动游戏崩溃" HorizontalAlignment="Left" Width="508"/>
-                            <ComboBoxItem Content="提出相关建议" HorizontalAlignment="Left" Width="508"/>
-                        </ComboBox>
-                        <TextBox x:Name="fk" HorizontalAlignment="Left" Height="115" Margin="131,84.4,0,0" TextWrapping="Wrap" Text="请描述您遇到的bug、启动游戏时的崩溃或建议。" VerticalAlignment="Top" Width="510" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
-                        <StackPanel HorizontalAlignment="Left" Height="75" Margin="131,234.4,0,0" VerticalAlignment="Top" Width="510" Background="White">
-                            <Grid Height="70" HorizontalAlignment="Right" Width="510">
-                                <Rectangle x:Name="rectangle" RadiusX="0" RadiusY="0" Width="50" Height="50" MouseLeftButtonUp="UpLoadCaptrue_Click" SnapsToDevicePixels="True" StrokeDashArray="3 3 3 3" StrokeThickness="1" Margin="10,10,450,10">
-                                    <Rectangle.Fill>
-                                        <ImageBrush ImageSource="1366553-20180407153016245-1947754371.png" Opacity="0.3" Stretch="Fill" Viewport="0.25 0.25 0.5 0.5"/>
-                                    </Rectangle.Fill>
-                                    <Rectangle.Style>
-                                        <Style TargetType="{x:Type Rectangle}">
-                                            <Setter Property="Stroke" Value="#999999"/>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="Stroke" Value="#1dc0a5"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Rectangle.Style>
-                                </Rectangle>
-                                <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden" Width="424" Margin="76,3,0,-3" HorizontalAlignment="Left">
-                                    <ItemsControl x:Name="itemsControl"   Background="Transparent" ItemsSource="{Binding ''}" Height="64.18">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal"/>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Border>
-                                                    <StackPanel>
-                                                        <Grid Width="60" Height="60" SnapsToDevicePixels="True">
-                                                            <Border BorderBrush="#999999" Width="50" Height="50" BorderThickness="1" Margin="5 0">
-                                                                <Image Source="{Binding}" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-                                                            <Image Source="1366553-20180407153039546-918710094.png" Width="16" Height="16" MouseLeftButtonUp="ReMoveCaptrue_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 2 0 0" OpacityMask="{x:Null}">
-                                                                <Image.Style>
-                                                                    <Style TargetType="{x:Type Image}">
-                                                                        <Style.Triggers>
-                                                                            <Trigger Property="IsMouseOver" Value="true">
-                                                                                <Setter Property="Effect">
-                                                                                    <Setter.Value>
-                                                                                        <DropShadowEffect ShadowDepth="0" Color="Red" Opacity="1" BlurRadius="5"/>
-                                                                                    </Setter.Value>
-                                                                                </Setter>
-                                                                            </Trigger>
-                                                                        </Style.Triggers>
-                                                                    </Style>
-                                                                </Image.Style>
-                                                            </Image>
-                                                        </Grid>
-                                                    </StackPanel>
-                                                </Border>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-                            </Grid>
-                        </StackPanel>
-                        <Button Content="提交" HorizontalAlignment="Left" Height="25" Margin="637,374.4,0,0" VerticalAlignment="Top" Width="80" Background="#FFEB5B5B" Click="Button_Click_6"/>
-                        <TextBlock HorizontalAlignment="Left" Height="15" Margin="131,211.4,0,0" TextWrapping="Wrap" Text="截图：" VerticalAlignment="Top" Width="71"/>
-                        <TextBox x:Name="yx" HorizontalAlignment="Left" Height="20" Margin="177,329.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"/>
-                        <TextBlock HorizontalAlignment="Left" Height="26" Margin="131,329.4,0,0" TextWrapping="Wrap" Text="邮箱：" VerticalAlignment="Top" Width="66" FontSize="15"/>
+                <TabItem Header="关于">
+                    <Grid Margin="0,-1,-7.4,-7.2">
+                        <!--Grid.Effect>
+                            <DropShadowEffect Color="White"/>
+                        </-->
+                        <!--#region 高斯模糊效果(最底层) -->
+                        <Rectangle>
+                            <Rectangle.Effect>
+                                <BlurEffect Radius="15"/>
+                            </Rectangle.Effect>
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="UniformToFill" AlignmentX="Right" >
+                                    <VisualBrush.Visual>
+                                        <Rectangle Width="{Binding ActualWidth, ElementName=Sz}" 
+                                       Height="{Binding ActualHeight, ElementName=Sz}"
+                                       Fill="{Binding Background, ElementName=Sz}"
+                                       />
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Fill="White" Opacity="0.2"/>
+
+                        <!--#endregion-->
+                        <Image HorizontalAlignment="Left" Height="270" Margin="5,55.4,0,0" VerticalAlignment="Top" Width="270" Source="../Resources/SDL12.png"/>
+                        <Label Content="                                      关于&#xA;                 本软件一切解释权由BaiBao所有&#xA;&#xA;                Minecraft解释权由MOJANG所有&#xA;&#xA;  本软件开源仅供参考和安全排查，请遵循GPLV5.0协议&#xA;&#xA;                如果您有很好的意见可以联系我们&#xA;&#xA;                             SMCL官方反馈群：&#xA;                                 905455503&#xA;&#xA;                        欢迎您加入我们的大家庭！"  Height="359.4" Margin="268.2,25,6.2,0" VerticalAlignment="Top" Width="515.6" FontSize="20" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="游戏选择" HorizontalAlignment="Left" Height="37.6" VerticalAlignment="Top" Width="116.8" Margin="4.4,0,-4.4,0">

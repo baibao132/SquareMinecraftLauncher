@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,20 +18,29 @@ using System.Windows.Shapes;
 using Gac;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using MinecraftServer.Server;
-using SikaDeerLauncher;
-using SikaDeerLauncher.Minecraft;
+using SquareMinecraftLauncher;
+using SquareMinecraftLauncher.Core;
+using SquareMinecraftLauncher.Minecraft;
 
-namespace SikaDeerLauncherWPF
+namespace SquareMinecraftLauncher
 {
     /// <summary>
     /// sz.xaml 的交互逻辑
     /// </summary>
-    public partial class Sz : MetroWindow
+    public partial class sz : MetroWindow
     {
-        public Sz()
+        private static void CurrentDomain_UnhandleException(object sender, UnhandledExceptionEventArgs e)
         {
+            exception exception = new exception();
+            exception.ex.Text = e.ExceptionObject.ToString();
+            exception.ShowDialog();
+        }
+        public sz()
+        {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandleException);
             InitializeComponent();
         }
         public ObservableCollection<string> Capture = new ObservableCollection<string>();
@@ -38,32 +48,31 @@ namespace SikaDeerLauncherWPF
         {
             xz.ItemsSource = Core.ItemAdd(xzItems.ToArray());
             dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
-            this.itemsControl.ItemsSource = Capture;
         }
         #region 验证
         internal void Button_Click(object sender, RoutedEventArgs e)
         {
             if (ZH.Text == "" || MM.Password == "" || ID.Text == "")
             {
-                Core.Message("任何内容都不可为空", true);
+                SquareMinecraftLauncherWPF.Core.Message(this, "任何内容都不可为空", true);
                 return;
             }
             try
             {
                 DIYvar.Pass = null;
-                SikaDeerLauncher.Minecraft.Tools tools = new SikaDeerLauncher.Minecraft.Tools();
+                SquareMinecraftLauncher.Minecraft.Tools tools = new SquareMinecraftLauncher.Minecraft.Tools();
                 if (yz.SelectedIndex == 0)
                 {
-                    SikaDeerLauncher.Minecraft.UnifiedPass pass = tools.GetUnifiedPass(ID.Text, ZH.Text, MM.Password);
+                    SquareMinecraftLauncher.Minecraft.UnifiedPass pass = tools.GetUnifiedPass(ID.Text, ZH.Text, MM.Password);
                     rw.Items.Clear();
                     rw.Items.Add(pass.name);
                     DIYvar.Pass = pass;
                 }
                 else
                 {
-                    SikaDeerLauncher.Minecraft.Skin skin = tools.GetAuthlib_Injector(ID.Text, ZH.Text, MM.Password);
+                    SquareMinecraftLauncher.Minecraft.Skin skin = tools.GetAuthlib_Injector(ID.Text, ZH.Text, MM.Password);
                     rw.Items.Clear();
-                    foreach (SikaDeerLauncher.Minecraft.SkinName a in skin.NameItem)
+                    foreach (SquareMinecraftLauncher.Minecraft.SkinName a in skin.NameItem)
                     {
                         rw.Items.Add(a.Name);
                     }
@@ -71,9 +80,9 @@ namespace SikaDeerLauncherWPF
                     DIYvar.Name = skin.NameItem[0];
                 }
             }
-            catch (SikaDeerLauncher.SikaDeerLauncherException ex)
+            catch (SquareMinecraftLauncher.SquareMinecraftLauncherException ex)
             {
-                Core.Message(ex.Message, true);
+                SquareMinecraftLauncherWPF.Core.Message(this, ex.Message, true);
             }
         }
         #endregion
@@ -112,21 +121,29 @@ namespace SikaDeerLauncherWPF
             ChangeTheme(color, colorc);
         }
 
-        Core Core = new Core();
+        SquareMinecraftLauncherWPF.Core Core = new SquareMinecraftLauncherWPF.Core();
         #region 浏览
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "打开";
-            openFileDialog.Filter = "所有文件(*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
+            openFileDialog.Filter = "PNG图片|*.png";
+            try
             {
-                Core.SetFile("SikaDeerLauncher");
-                Core.SetFile(@"SikaDeerLauncher\bj");
-                File.Copy(openFileDialog.FileName, @"SikaDeerLauncher\bj\bj.jpg", true);
-                Image1.Source = Core.BitmapToBitmapImage(new System.Drawing.Bitmap(@"SikaDeerLauncher\bj\bj.jpg"));
-                this.Background = Core.brush(@"SikaDeerLauncher\bj\bj.jpg");
-                DIYvar.Main.Background = Core.brush(@"SikaDeerLauncher\bj\bj.jpg"); 
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    Core.SetFile("SquareMinecraftLauncher");
+                    Core.SetFile(@"SquareMinecraftLauncher\bj");
+                    File.Copy(openFileDialog.FileName, @"SquareMinecraftLauncher\bj\bj.png", true);
+                    Image1.Source = Core.BitmapToBitmapImage(new System.Drawing.Bitmap(@"SquareMinecraftLauncher\bj\bj.png"));
+                    this.Background = Core.brush(@"SquareMinecraftLauncher\bj\bj.png");
+                    DIYvar.Main.Background = Core.brush(@"SquareMinecraftLauncher\bj\bj.png");
+                }
+            }
+            catch
+            {
+                this.ShowMessageAsync("提示", "图片编码有误，请换张图");
+                File.Delete(@"SquareMinecraftLauncher\bj\bj.png");
             }
         }
         #endregion
@@ -141,7 +158,7 @@ namespace SikaDeerLauncherWPF
                 }
                 else
                 {
-                    Core.Message("请先通过验证", true);
+                    SquareMinecraftLauncherWPF.Core.Message(this, "请先通过验证", true);
                 }
             }
         }
@@ -234,7 +251,7 @@ namespace SikaDeerLauncherWPF
             this.Hide();
         }
         Tools tools = new Tools();
-        SikaDeerLauncher.MinecraftDownload MinecraftDownload = new SikaDeerLauncher.MinecraftDownload();
+        SquareMinecraftLauncher.MinecraftDownload MinecraftDownload = new SquareMinecraftLauncher.MinecraftDownload();
         static int JarID, JsonID;
         static System.Windows.Threading.DispatcherTimer JarTimer = new System.Windows.Threading.DispatcherTimer();
         internal static bool JarTimerBool = false;
@@ -244,7 +261,7 @@ namespace SikaDeerLauncherWPF
             JarID = Download(download.path, "游戏核心", download.Url);
             download = MinecraftDownload.MCjsonDownload(mcVersionLists[GameVersionList.SelectedIndex].version);
             JsonID = Download(download.path, "游戏核心", download.Url);
-            Core.Message("开始下载中，请转到下载页面查看", true);
+            SquareMinecraftLauncherWPF.Core.Message(this, "开始下载中，请转到下载页面查看", true);
             JarTimer = Core.timer(MCjarInstall, 3000);
             JarTimer.Start();
             JarTimerBool = true;
@@ -259,7 +276,7 @@ namespace SikaDeerLauncherWPF
                 {
                     GameVersion.Items.Add(i.version);
                 }
-                Core.Message("安装完成", true);
+                SquareMinecraftLauncherWPF.Core.Message(this, "安装完成", true);
                 JarTimerBool = false;
                 JarTimer.Stop();
             }
@@ -287,7 +304,7 @@ namespace SikaDeerLauncherWPF
             java = MinecraftDownload.JavaFileDownload();
             JavaID = id;
             Download(java.path, "Java下载", java.Url);
-            Core.Message("开始下载，请转到下载页面查看", true);
+            SquareMinecraftLauncherWPF.Core.Message(this, "开始下载，请转到下载页面查看", true);
             JavaTimer = Core.timer(JavaDown, 3000);
             JavaTimer.Start();
         }
@@ -313,22 +330,46 @@ namespace SikaDeerLauncherWPF
             MM.Focus();
         }
 
-        private void jzz(string text)
-        {
-
-        }
-
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-
+           
         }
         OptiFineList[] optis = new OptiFineList[0];
-        private void KzbGameVersion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void KzbGameVersion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var loading = await DIYvar.Main1.ShowProgressAsync("提示", "正在获取该版本扩展包信息");
+            loading.SetIndeterminate();
+            try
+            {
+                Fabricmc.Items.Clear();
+                SquareMinecraftLauncher.Core.fabricmc.fabricmc fabricmc1 = new SquareMinecraftLauncher.Core.fabricmc.fabricmc();
+                var fab = await fabricmc1.FabricmcList(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString());
+                Fabricmc.Items.Add("无");
+                foreach (var i in fab)
+                {
+                    Fabricmc.Items.Add(i);
+                }
+                Fabricmc.SelectedIndex = 1;
+            }
+            catch(SquareMinecraftLauncherException ex)
+            {
+                if (ex.Message == "访问失败")
+                {
+                    Fabricmc.Items.Add("未获取到该版本Fabricmc，请检查网络后重试");
+                    Fabricmc.SelectedIndex = 0;
+                    await loading.CloseAsync();
+                    return;
+                }
+                else
+                {
+                    Fabricmc.Items.Add("无相关Fabricmc版本");
+                    Fabricmc.SelectedIndex = 0;
+                }
+            }
             try
             {
                 Forge.Items.Clear();
-                var a = tools.GetForgeList(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString());
+                var a = await tools.GetForgeList(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString());
                 Forge.Items.Add("无");
                 foreach (var i in a)
                 {
@@ -336,12 +377,13 @@ namespace SikaDeerLauncherWPF
                 }
                 Forge.SelectedIndex = 1;
             }
-            catch (SikaDeerLauncherException ex)
+            catch (SquareMinecraftLauncherException ex)
             {
                 if (ex.Message == "访问失败")
                 {
                     Forge.Items.Add("未获取到该版本Forge，请检查网络后重试");
                     Forge.SelectedIndex = 0;
+                    await loading.CloseAsync();
                     return;
                 }
                 else
@@ -354,7 +396,7 @@ namespace SikaDeerLauncherWPF
             try
             {
                 Liteloader.Items.Clear();
-                var a = tools.GetLiteloaderList();
+                var a = await tools.GetLiteloaderList();
                 Liteloader.Items.Add("无");
                 int xp = 0;
                 foreach (var i in a)
@@ -374,7 +416,7 @@ namespace SikaDeerLauncherWPF
                     Liteloader.SelectedIndex = 1;
                 }
             }
-            catch (SikaDeerLauncherException ex)
+            catch (SquareMinecraftLauncherException ex)
             {
                 if (ex.Message == "获取失败")
                 {
@@ -391,7 +433,7 @@ namespace SikaDeerLauncherWPF
             try
             {
                 Optifine.Items.Clear();
-                optis = tools.GetOptiFineList(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString());
+                optis = await tools.GetOptiFineList(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString());
                 Optifine.Items.Add("无");
                 foreach (var i in optis)
                 {
@@ -399,12 +441,13 @@ namespace SikaDeerLauncherWPF
                 }
                 Optifine.SelectedIndex = 1;
             }
-            catch (SikaDeerLauncherException ex)
+            catch (SquareMinecraftLauncherException ex)
             {
                 if (ex.Message == "获取失败")
                 {
                     Optifine.Items.Add("未获取到该版本Optifine，请检查网络后重试");
                     Optifine.SelectedIndex = 0;
+                    await loading.CloseAsync();
                     return;
                 }
                 else
@@ -413,70 +456,125 @@ namespace SikaDeerLauncherWPF
                     Optifine.SelectedIndex = 0;
                 }
             }
+            await loading.CloseAsync();
         }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private async void Button_Click_5(object sender, RoutedEventArgs e)
         {
             if (javaw.Text == "")
             {
-                Core.Message("需要安装java", true);
+                SquareMinecraftLauncherWPF.Core.Message(this, "需要安装java", true);
                 return;
             }
+            string title = "正在安装中...";
+            var loading = await this.ShowProgressAsync("提示", title);
+            loading.SetIndeterminate();
             MinecraftDownload minecraft = new MinecraftDownload();
             if (Optifine.SelectedIndex != 0)
             {
-                tools.OptifineInstall(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString(), optis[Optifine.SelectedIndex].patch);
-                Core.Message("Optifine安装完成", true);
+                try
+                {
+                await tools.OptifineInstall(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString(), optis[Optifine.SelectedIndex].patch);
+                title += "\nOptifine安装完成";
+                loading.SetMessage(title);
             }
+                catch
+            {
+                title += "\nOptifine已经安装了，如需更换版本请先卸载该扩展包";
+                loading.SetMessage(title);
+            }
+        }
             if (Liteloader.SelectedIndex != 0)
             {
-                tools.liteloaderInstall(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString());
-                Core.Message("liteloader安装完成", true);
+                try
+                {
+                    await tools.liteloaderInstall(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString());
+                    title += "\nliteloader安装完成";
+                    loading.SetMessage(title);
+                }
+                catch
+                {
+                    title += "\nliteloader已经安装了，如需更换版本请先卸载该扩展包";
+                    loading.SetMessage(title);
+                }
             }
 
             if (Forge.SelectedIndex != 0)
             {
                 GameVersionF = kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString();
                 ForgeD = minecraft.ForgeDownload(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString(), Forge.Items[Forge.SelectedIndex].ToString());
+                Console.WriteLine(ForgeD.Url);
                 if (File.Exists(ForgeD.path))
                 {
-                    if (tools.ForgeInstallation(ForgeD.path, GameVersionF, javaw.Text))
+                    if (await tools.ForgeInstallation(ForgeD.path, GameVersionF, javaw.Text))
                     {
-                        Core.Message("Forge安装完成", true);
+                        title += "\nForge安装完成";
+                        loading.SetMessage(title);
                     }
                     else
                     {
-                        Core.Message("Forge安装失败，可能网络不稳定", true);//该提示一般出现于1.13版本以上的Forge安装，因为1.13版本json发生了极大的变化导致Forge安装也发生了变化
+                        title += "\nForge安装失败";
+                        loading.SetMessage(title);//该提示一般出现于1.13版本以上的Forge安装，因为1.13版本json发生了极大的变化导致Forge安装也发生了变化
                     }
                     return;
                 }
                 ForgeID = Download(ForgeD.path, "Forge扩展包", ForgeD.Url);
-                ForgeTimer = Core.timer(ForgeTimerEvent, 3000);
-                ForgeTimer.Start();
-                Core.Message("Forge下载中", true);
+                await ForgeTimerEvent(loading,title);
             }
+            if (Fabricmc.SelectedIndex != 0)
+            {
+                SquareMinecraftLauncher.Core.fabricmc.fabricmc fabricmc = new SquareMinecraftLauncher.Core.fabricmc.fabricmc();
+                bool fvi = await fabricmc.FabricmcVersionInstall(kzbGameVersion.Items[kzbGameVersion.SelectedIndex].ToString(), Fabricmc.Items[Fabricmc.SelectedIndex].ToString());
+                if (fvi)
+                {
+                    title += "\nFabricmc安装完成";
+                    loading.SetMessage(title);
+                }
+                else 
+                {
+                    title += "\nFabricmc安装失败";
+                    loading.SetMessage(title);
+                }
+            }
+            await loading.CloseAsync();
         }
         string GameVersionF = null;
         MCDownload ForgeD = new MCDownload();
         int ForgeID = 0;
         System.Windows.Threading.DispatcherTimer ForgeTimer = new System.Windows.Threading.DispatcherTimer();
-        private void ForgeTimerEvent(object a, EventArgs args)
+        private async Task ForgeTimerEvent(ProgressDialogController loading,string title)
         {
-            if (xzItems[ForgeID].xzwz == "完成")
+            bool flag = true;
+            await Task.Factory.StartNew(async () =>
             {
-                xzItems[ForgeID].xzwz = "安装中";
-                if (tools.ForgeInstallation(ForgeD.path, GameVersionF, javaw.Text))
+                while (flag)
                 {
-                    xzItems[ForgeID].xzwz = "安装完成";
-                    Core.Message("Forge安装完成", true);
+                    if (xzItems[ForgeID].xzwz == "完成")
+                    {
+                        xzItems[ForgeID].xzwz = "安装中";
+                        if (await tools.ForgeInstallation(ForgeD.path, GameVersionF, javaw.Text))
+                        {
+                            xzItems[ForgeID].xzwz = "安装完成";
+                            title += "\nForge安装完成";
+                            loading.SetMessage(title);
+                        }
+                        else
+                        {
+                            xzItems[ForgeID].xzwz = "安装失败";
+                            title += "\nForge安装失败";
+                            loading.SetMessage(title);
+                        }
+                        flag = false;
+                    }
+                    if (xzItems[ForgeID].xzwz.IndexOf("无法") >= 0 || xzItems[ForgeID].xzwz.IndexOf("失败") >= 0)
+                    {
+                        title += "\nForge安装失败";
+                        loading.SetMessage(title);
+                        flag = false;
+                    }
+                        Thread.Sleep(3000);
                 }
-                else
-                {
-                    xzItems[ForgeID].xzwz = "安装失败";
-                    Core.Message("Forge安装失败，可能网络不稳定", true);
-                }
-                ForgeTimer.Stop();
-            }
+            });
         }
 
         private void Button_Click_9(object sender, RoutedEventArgs e)
@@ -485,11 +583,11 @@ namespace SikaDeerLauncherWPF
             {
                 tools.UninstallTheExpansionPack(ExpansionPack.Forge, DIYvar.l[GameGLVersion.SelectedIndex].Content.ToString().Replace(" ", ""));
                 yxglForge.Text = "没有安装Forge";
-                Core.Message("卸载完成", true);
+                SquareMinecraftLauncherWPF.Core.Message(this, "卸载完成", true);
             }
-            catch (SikaDeerLauncherException ex)
+            catch (SquareMinecraftLauncherException ex)
             {
-                Core.Message(ex.Message, true);
+                SquareMinecraftLauncherWPF.Core.Message(this, ex.Message, true);
             }
         }
 
@@ -499,11 +597,11 @@ namespace SikaDeerLauncherWPF
             {
                 tools.UninstallTheExpansionPack(ExpansionPack.Liteloader, DIYvar.l[GameGLVersion.SelectedIndex].Content.ToString().Replace(" ", ""));
                 yxglForge.Text = "没有安装Liteloader";
-                Core.Message("卸载完成", true);
+                SquareMinecraftLauncherWPF.Core.Message(this, "卸载完成", true);
             }
-            catch (SikaDeerLauncherException ex)
+            catch (SquareMinecraftLauncherException ex)
             {
-                Core.Message(ex.Message, true);
+                SquareMinecraftLauncherWPF.Core.Message(this, ex.Message, true);
             }
         }
 
@@ -513,11 +611,11 @@ namespace SikaDeerLauncherWPF
             {
                 tools.UninstallTheExpansionPack(ExpansionPack.Optifine, DIYvar.l[GameGLVersion.SelectedIndex].Content.ToString().Replace(" ", ""));
                 yxglForge.Text = "没有安装Optifine";
-                Core.Message("卸载完成", true);
+                SquareMinecraftLauncherWPF.Core.Message(this, "卸载完成", true);
             }
-            catch (SikaDeerLauncherException ex)
+            catch (SquareMinecraftLauncherException ex)
             {
-                Core.Message(ex.Message, true);
+                SquareMinecraftLauncherWPF.Core.Message(this, ex.Message, true);
             }
         }
 
@@ -541,54 +639,6 @@ namespace SikaDeerLauncherWPF
         {
             ss.Text = "";
         }
-        #region 反馈
-        /// <summary>
-        /// 上传截图
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void UpLoadCaptrue_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (Capture.ToArray().Length == 5)
-            {
-                Core.Message("截图只能加入5张", true);
-                return;
-            }
-            OpenFileDialog logoSelected = new OpenFileDialog();
-            logoSelected.Filter = "图片|*.jpg;*.png;*.bmp;*.gif";
-            if (logoSelected.ShowDialog() == true)
-            {
-                Capture.Add(logoSelected.FileName);
-            }
-        }
-
-        private void TextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (fk.Text == "请描述您遇到的bug、启动游戏时的崩溃或建议。")
-            {
-                fk.Text = "";
-            }
-        }
-
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-            List<string> email = new List<string>();
-            email.Add("2817541592@qq.com");
-            List<string> a = new List<string>();
-            foreach (var i in Capture)
-            {
-                a.Add(i.ToString());
-            }
-            if (SmtpClass.sendmail("baibaostudio@126.com","baibaostudio","2817541592@qq.com","2817541592", "反馈", fkxx.Text + "\n" + fk.Text + "\n" + yx.Text, a.ToArray(),"smtp.126.com","baibaostudio@126.com","Zz3481133"))
-            {
-                Core.Message("反馈成功，后续会通过邮件回复您\n感谢您的反馈，我们会通过您提交的反馈做到越来越好",true);
-                Capture.Clear();
-                fk.Text = "";
-                yx.Text = "";
-                return;
-            }
-            Core.Message("反馈失败，请确认是否被安全软件拦截",true);
-        }
 
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -596,11 +646,6 @@ namespace SikaDeerLauncherWPF
             Show();
             return;
         }
-
-        private void ToggleSwitchButton_Checked(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void GameGLVersion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (GameGLVersion.SelectedIndex == -1)
@@ -610,26 +655,36 @@ namespace SikaDeerLauncherWPF
             foreach (var i in DIYvar.l)
             {
                 i.bj.Visibility = Visibility.Collapsed;
-                i.q.Height = 110;
-                i.Height = 110;
+                i.q.Height = 80;
+                i.Height = 80;
             }
-            DIYvar.l[GameGLVersion.SelectedIndex].q.Height = 160;
-            DIYvar.l[GameGLVersion.SelectedIndex].Height = 160;
+            DIYvar.l[GameGLVersion.SelectedIndex].q.Height = 120;
+            DIYvar.l[GameGLVersion.SelectedIndex].Height = 120;
             DIYvar.l[GameGLVersion.SelectedIndex].bj.Visibility = Visibility.Visible;
             GameGLVersion.ItemsSource = DIYvar.l;
         }
 
-
-
-        /// <summary>
-        /// 移除截图
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ReMoveCaptrue_Click(object sender, MouseButtonEventArgs e)
+        private void Button_Click_10(object sender, RoutedEventArgs e)
         {
-            Capture.Remove(((Image)sender).DataContext.ToString());
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "javaw.exe|javaw.exe";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                javaw.Text = openFileDialog.FileName;
+            }
         }
-        #endregion
+
+        private void IsAutoJavaToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (isAutoJavaToggle.IsChecked == true)
+            {
+                RAM.Text = tools.GetMemorySize().AppropriateMemory.ToString();
+                RAM.IsEnabled = false;
+            }
+            else if (isAutoJavaToggle.IsChecked == false)
+            {
+                RAM.IsEnabled = true;
+            }
+        }
     }
 }
